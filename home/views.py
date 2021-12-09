@@ -1,10 +1,11 @@
 from django.shortcuts import render
-from .models import Contact
+from .models import Contact,Review,Blog
 # Create your views here.
 
 def home(request):
-
-	return render(request,'index.html')
+	review = {}
+	review['comments'] = Review.objects.all()
+	return render(request,'index.html',review)
 
 
 def about(request):
@@ -26,6 +27,17 @@ def contact(request):
 			)
 		data.save()
 		message = {'success':'The form is submitted'}
+		# message['information'] = Information.objects.all()[-1]
 		return render(request,'contact.html',message)
 
 	return render(request,'contact.html')
+
+def blog(request):
+	blog_view = {}
+	blog_view['blogs'] = Blog.objects.all()
+	return render(request,'blog-home.html',blog_view)
+
+def blog_detail(request,slug):
+	blog_detail = {}
+	blog_detail['blog_details'] = Blog.objects.filter(slug = slug)
+	return render(request,'blog-single.html',blog_detail)
