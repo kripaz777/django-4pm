@@ -37,7 +37,7 @@ def blog(request):
 	blog_view['blogs'] = Blog.objects.all()
 	return render(request,'blog-home.html',blog_view)
 
-def blog_detail(request,slug):
+def blog_detail(request,slugs):
 	blog_detail = {}
-	blog_detail['blog_details'] = Blog.objects.filter(slug = slug)
+	blog_detail['blog_details'] = Blog.objects.filter(slug = slugs)
 	return render(request,'blog-single.html',blog_detail)
